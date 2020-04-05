@@ -1,0 +1,14 @@
+const tableName = 'table_name';
+
+exports.seed = (knex) => {
+  // remove all existing data from table
+  return knex(tableName).del()
+    .then(() => {
+      // insert new data into table
+      return knex(tableName).insert([
+        {id: 1, colName: 'rowValue1'},
+        {id: 2, colName: 'rowValue2'},
+        {id: 3, colName: 'rowValue3'}
+      ]);
+    });
+};
