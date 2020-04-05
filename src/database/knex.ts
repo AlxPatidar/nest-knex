@@ -1,7 +1,5 @@
-import 'ts-node/register';
 import * as Dotenv from 'dotenv';
 import * as path from 'path';
-
 Dotenv.config({ path: '../../.env' });
 
 import { knexSnakeCaseMappers } from 'objection';

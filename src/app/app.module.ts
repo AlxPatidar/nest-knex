@@ -6,9 +6,10 @@ import { HttpErrorHandler } from '../shared/Handlers/http-error.handler';
 import { LoggingInterceptor } from '../shared/Interceptors/logging.interceptor';
 import { TimeoutInterceptor } from '../shared/Interceptors/timeout.interceptor';
 import { ApiModule } from 'src/api/api.module';
+import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
-  imports: [ApiModule],
+  imports: [ApiModule, DatabaseModule],
   controllers: [AppController],
   providers: [
     AppService,

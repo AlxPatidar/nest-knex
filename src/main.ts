@@ -1,11 +1,8 @@
-import * as dotEnv from 'dotenv';
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app/app.module';
 import { Logger } from '@nestjs/common';
-
-// Configure environment file with project
-dotEnv.config();
 
 // Read port number from env file
 const port = process.env.PORT || 4001;
