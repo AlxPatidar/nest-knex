@@ -11,21 +11,34 @@ export interface ResponseData {
 @Injectable()
 export class CommentsService {
   constructor(
-    @Inject('PostModel') private modelClass: ModelClass<CommentModel>
+    @Inject('CommentModel') private modelClass: ModelClass<CommentModel>
   ) { }
-  // Get all posts
+  // Get all comments with user and post details
   async findAll(): Promise<ResponseData> {
-    const posts = await this.modelClass.query();
+    const comments = await this.modelClass.query()
+      .withGraphFetched({
+        user: true,
+        post: {
+          user: true,
+        },
+      });
     return {
       success: true,
       message: 'Comment details fetch successfully.',
-      data: posts,
+      data: comments,
     };
   }
 
-  // Find post by id
+  // find comment with id and user with posts
   async findById(id: number): Promise<ResponseData> {
-    const post = await this.modelClass.query().findById(id);
+    const post = await this.modelClass.query()
+      .findById(id)
+      .withGraphFetched({
+        user: true,
+        post: {
+          user: true,
+        },
+      });
     if (post) {
       return {
         success: true,

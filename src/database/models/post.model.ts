@@ -7,13 +7,16 @@ export class PostModel extends BaseModel {
   static tableName = 'posts';
 
   title: string;
-  description: string;
+  body: string;
   userId: number;
 
+  // get user details or post made by user info
   user: UserModel;
-  comments: CommentModel[];
+  // list of all comments on present post
+  comments: CommentModel;
 
   static relationMappings = {
+    // relationship with user
     user: {
       modelClass: `${__dirname}/user.model`,
       relation: Model.BelongsToOneRelation,
@@ -22,12 +25,13 @@ export class PostModel extends BaseModel {
         to: 'users.id',
       },
     },
+    // list out comment on current post
     comments: {
       modelClass: `${__dirname}/comment.model`,
       relation: Model.HasManyRelation,
       join: {
         from: 'posts.id',
-        to: 'commments.id',
+        to: 'comments.postId',
       },
     },
   };

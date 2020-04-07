@@ -14,9 +14,15 @@ export class PostsService {
     @Inject('PostModel') private modelClass: ModelClass<PostModel>
   ) { }
 
-  // Get all posts
+  // find posts details with comments by id
   async findAll(): Promise<ResponseData> {
-    const posts = await this.modelClass.query();
+    const posts = await this.modelClass.query()
+      .withGraphFetched({
+        user: true,
+        comments: {
+          user: true,
+        },
+      });
     return {
       success: true,
       message: 'Post details fetch successfully.',
@@ -24,9 +30,16 @@ export class PostsService {
     };
   }
 
-  // Find post by id
+  // Find post details with comments by id
   async findById(id: number): Promise<ResponseData> {
-    const post = await this.modelClass.query().findById(id);
+    const post = await this.modelClass.query()
+      .findById(id)
+      .withGraphFetched({
+        user: true,
+        comments: {
+          user: true,
+        },
+      });
     if (post) {
       return {
         success: true,
@@ -40,6 +53,7 @@ export class PostsService {
         data: {},
       };
     }
+
   }
 
   // create post with user id

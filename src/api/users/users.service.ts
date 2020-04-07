@@ -13,19 +13,34 @@ export class UsersService {
     @Inject('UserModel') private modelClass: ModelClass<UserModel>
   ) { }
 
-  // Get all posts
+  // user list with list of posts and comments on post
   async findAll(): Promise<ResponseData> {
-    const users = await this.modelClass.query();
+    const users = await this.modelClass.query()
+      .withGraphFetched({
+        posts: {
+          user: true,
+          comments: {
+            user: true,
+          },
+        },
+      });
     return {
       success: true,
-      message: 'Post details fetch successfully.',
+      message: 'User details fetch successfully.',
       data: users,
     };
   }
 
-  // Find post by id
+  // find one user info by userId with posts data
   async findById(id: number): Promise<ResponseData> {
-    const user = await this.modelClass.query().findById(id);
+    const user = await this.modelClass.query()
+      .findById(id)
+      .withGraphFetched({
+        posts: {
+          user: true,
+          comments: true,
+        },
+      });
     if (user) {
       return {
         success: true,

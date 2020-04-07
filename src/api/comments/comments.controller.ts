@@ -6,14 +6,16 @@ export class CommentsController {
   constructor(private readonly commentService: CommentsService) { }
 
   @Get()
+  // get all comments
   async findAll() {
-    const post = await this.commentService.findAll();
-    return post;
+    const comments = await this.commentService.findAll();
+    return comments;
   }
 
   @Get(':id')
+  // get comment details by commentId
   async findOne(@Param('id', new ParseIntPipe()) id: number) {
-    const post = await this.commentService.findById(id);
-    return post;
+    const comment = await this.commentService.findById(id);
+    return comment;
   }
 }
