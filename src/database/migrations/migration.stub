@@ -2,7 +2,7 @@ import * as Knex from 'knex'
 
 export async function up(knex: Knex): Promise<any> {
   return knex.schema.createTable('tableName', (table: Knex.TableBuilder) => {
-    table.integer('id');
+    table.increments('id').unsigned().primary();
     // table.dateTime('created_on')
     //    .notNullable()
     //    .defaultTo(knex.raw('CURRENT_TIMESTAMP'))

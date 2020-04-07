@@ -7,7 +7,7 @@ export class PostModel extends BaseModel {
   static tableName = 'posts';
 
   title: string;
-  description: string;
+  body: string;
   userId: number;
 
   user: UserModel;

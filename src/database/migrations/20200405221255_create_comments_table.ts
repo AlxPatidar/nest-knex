@@ -2,11 +2,10 @@ import * as Knex from 'knex';
 
 export async function up(knex: Knex): Promise<any> {
   return knex.schema.createTable('comments', (table: Knex.TableBuilder) => {
-    table.integer('id');
-    table.string('title');
-    table.text('body');
-    table.integer('user_id');
-    table.integer('post_id');
+    table.increments('id').unsigned().primary();
+    table.string('comment');
+    table.integer('user_id').notNullable();
+    table.integer('post_id').notNullable();
     table.timestamps(true, true);
   });
 }

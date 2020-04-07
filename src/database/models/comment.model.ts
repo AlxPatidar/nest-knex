@@ -4,7 +4,7 @@ import { PostModel } from './post.model';
 import { Model } from 'objection';
 
 export class CommentModel extends BaseModel {
-  static tableName = 'commnets';
+  static tableName = 'comments';
 
   comment: string;
   userId: number;
