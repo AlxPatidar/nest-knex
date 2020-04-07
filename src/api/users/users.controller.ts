@@ -1,5 +1,6 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Body, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -15,5 +16,9 @@ export class UsersController {
   async findOne(@Param('id', new ParseIntPipe()) id: number) {
     const post = await this.postsService.findById(id);
     return post;
+  }
+  @Post()
+  create(@Body() user: CreateUserDto) {
+    return this.postsService.create(user);
   }
 }
