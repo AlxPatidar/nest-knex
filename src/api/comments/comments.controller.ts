@@ -1,5 +1,7 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body, Put, Delete } from '@nestjs/common';
 import { CommentsService } from './comments.service';
+import { CreateCommentDto } from './dto/create-comment.dto';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -8,14 +10,30 @@ export class CommentsController {
   @Get()
   // get all comments
   async findAll() {
-    const comments = await this.commentService.findAll();
-    return comments;
+    return this.commentService.findAll();
   }
 
   @Get(':id')
   // get comment details by commentId
   async findOne(@Param('id', new ParseIntPipe()) id: number) {
-    const comment = await this.commentService.findById(id);
-    return comment;
+    return this.commentService.findById(id);
+  }
+
+  @Post()
+  // create comment on post
+  async create(@Body() payload: CreateCommentDto) {
+    return this.commentService.createComment(payload);
+  }
+
+  @Put()
+  // update commnet on post
+  update(
+    @Body() payload: UpdateCommentDto) {
+    return this.commentService.update(payload);
+  }
+
+  @Delete(':commentId')
+  deleteById(@Param('commentId') postId: number) {
+    return this.commentService.deleteById(postId);
   }
 }

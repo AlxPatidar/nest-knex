@@ -55,4 +55,25 @@ export class UsersService {
       };
     }
   }
+  // Create user before save encrypt password
+  async create(payload) {
+    const newUser = await this.modelClass.query().findOne({
+      email: payload.email,
+    });
+    if (!newUser) {
+      const identifiers = await this.modelClass.query().insert(payload);
+      const createUser = await this.modelClass.query().findById(identifiers.id);
+      return {
+        success: true,
+        message: 'User created successfully.',
+        data: createUser,
+      };
+    } else {
+      return {
+        success: false,
+        message: 'User already exists with this email address!!!',
+        data: {},
+      };
+    }
+  }
 }
