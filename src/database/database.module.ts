@@ -27,7 +27,7 @@ const providers = [
       return knex;
     },
   },
-]
+];
 
 @Global()
 @Module({

@@ -1,11 +1,14 @@
 import * as Knex from 'knex';
 
 export async function up(knex: Knex): Promise<any> {
+  if (await knex.schema.hasTable('comments')) {
+    return;
+  }
   return knex.schema.createTable('comments', (table: Knex.TableBuilder) => {
     table.increments('id').unsigned().primary();
     table.string('comment');
-    table.integer('user_id').notNullable();
-    table.integer('post_id').notNullable();
+    table.integer('user_id').references('id').inTable('users').notNullable();
+    table.integer('post_id').references('posts.id').notNullable();
     table.timestamps(true, true);
   });
 }

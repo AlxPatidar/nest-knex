@@ -1,6 +1,9 @@
 import * as Knex from 'knex';
 
 export async function up(knex: Knex): Promise<any> {
+  if (await knex.schema.hasTable('users')) {
+    return;
+  }
   return knex.schema.createTable('users', (table: Knex.TableBuilder) => {
     table.increments('id').unsigned().primary();
     table.string('avatar');
