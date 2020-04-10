@@ -57,7 +57,6 @@ export class CommentsService {
   // create comment on post
   async createComment(payload): Promise<ResponseData> {
     const comment = await this.modelClass.query().insert(payload);
-    console.log({ comment })
     return {
       success: true,
       message: 'Comment added to post successfully.',

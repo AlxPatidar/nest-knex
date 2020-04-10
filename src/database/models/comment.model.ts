@@ -6,7 +6,7 @@ import { Model } from 'objection';
 export class CommentModel extends BaseModel {
   static tableName = 'comments';
 
-  body: string;
+  comment: string;
   userId: number;
   postId: number;
 

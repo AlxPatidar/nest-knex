@@ -5,8 +5,14 @@ import { CommentModel } from '../models/comment.model';
 
 const createFakerComment = () => ({
   comment: Faker.lorem.words(),
-  postId: Faker.random.number(1, 50),
-  userId: Faker.random.number(1, 20),
+  postId: Faker.random.number({
+    min: 1,
+    max: 50,
+  }),
+  userId: Faker.random.number({
+    min: 1,
+    max: 20,
+  }),
 });
 
 exports.seed = async (knex) => {

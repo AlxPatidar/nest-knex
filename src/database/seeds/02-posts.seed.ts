@@ -2,11 +2,15 @@ import * as Faker from 'faker';
 import { times } from 'lodash';
 import { Logger } from '@nestjs/common';
 import { PostModel } from '../models/post.model';
+import { CommentModel } from '../models/comment.model';
 
 const createFakerPost = () => ({
   title: Faker.lorem.sentence(),
   body: Faker.lorem.paragraph(),
-  userId: Faker.random.number(1, 20),
+  userId: Faker.random.number({
+    min: 1,
+    max: 20,
+  }),
 });
 
 exports.seed = async (knex) => {
