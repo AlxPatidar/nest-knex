@@ -24,6 +24,7 @@ module.exports = {
     },
     seeds: {
       directory: path.join(__dirname, '/seeds'),
+      loadExtensions: ['.ts'],
       stub: path.join(__dirname, '/seeds/seed.stub'),
     },
     ...knexSnakeCaseMappers(),
@@ -63,7 +64,5 @@ module.exports = {
 }[process.env.NODE_ENV || 'development'];
 
 Logger.log(
-  `Will connect to mysql://${process.env.MYSQL_HOST}@${
-  process.env.MYSQL_USER
-  }/${process.env.MYSQL_DB}`
+  `Will connect to mysql://${process.env.MYSQL_HOST}@${process.env.MYSQL_USER}/${process.env.MYSQL_DB}`,
 );

@@ -15,12 +15,10 @@ const createFakerComment = () => ({
   }),
 });
 
-exports.seed = async (knex) => {
+exports.seed = async knex => {
   Logger.log('Starting comments table seeder');
   // create 20 user and push into array
   const commentsList = times(100, () => createFakerComment());
-  // remove all current posts from data base if presents
-  await CommentModel.query(knex).del();
   // insert all posts list array into table
   await CommentModel.query(knex).insertGraph(commentsList);
   Logger.log('Ending comments table seeder');

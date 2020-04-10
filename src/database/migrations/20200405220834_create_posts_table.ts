@@ -7,12 +7,14 @@ export async function up(knex: Knex): Promise<any> {
   }
   Logger.log('Creating posts table');
   return knex.schema.createTable('posts', (table: Knex.TableBuilder) => {
-    table.increments('id')
+    table
+      .increments('id')
       .unsigned()
       .primary();
     table.string('title');
     table.text('body');
-    table.integer('user_id')
+    table
+      .integer('user_id')
       .unsigned()
       .index()
       .references('id')

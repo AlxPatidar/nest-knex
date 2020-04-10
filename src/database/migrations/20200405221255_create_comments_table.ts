@@ -7,18 +7,21 @@ export async function up(knex: Knex): Promise<any> {
   }
   Logger.log('Creating comments table');
   return knex.schema.createTable('comments', (table: Knex.TableBuilder) => {
-    table.increments('id')
+    table
+      .increments('id')
       .unsigned()
       .primary();
     table.string('comment');
-    table.integer('user_id')
+    table
+      .integer('user_id')
       .unsigned()
       .index()
       .references('id')
       .inTable('users')
       .notNullable()
       .onDelete('CASCADE');
-    table.integer('post_id')
+    table
+      .integer('post_id')
       .unsigned()
       .index()
       .references('id')

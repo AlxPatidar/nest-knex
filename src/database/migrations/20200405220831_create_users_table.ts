@@ -7,9 +7,10 @@ export async function up(knex: Knex): Promise<any> {
   }
   Logger.log('Creating users table');
   return knex.schema.createTable('users', (table: Knex.TableBuilder) => {
-    table.increments('id')
-    .unsigned()
-    .primary();
+    table
+      .increments('id')
+      .unsigned()
+      .primary();
     table.string('avatar');
     table.string('user_name');
     table.string('first_name');

@@ -24,7 +24,7 @@ export class HttpErrorHandler implements ExceptionFilter {
       message: get(
         exception,
         'message.message',
-        get(exception, 'message.error', 'Invalid url!')
+        get(exception, 'message.error', 'Invalid url!'),
       ),
       data: {},
     });

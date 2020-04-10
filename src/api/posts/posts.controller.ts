@@ -1,11 +1,20 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Put, Body, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Body,
+  Delete,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreateCommentDto } from '../comments/dto/create-comment.dto';
 import { UpdateCommentDto } from '../comments/dto/update-comment.dto';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Get()
   // find all post
@@ -28,8 +37,7 @@ export class PostsController {
 
   @Put()
   // update commnet on post
-  update(
-    @Body() payload: UpdateCommentDto) {
+  update(@Body() payload: UpdateCommentDto) {
     return this.postsService.update(payload);
   }
 

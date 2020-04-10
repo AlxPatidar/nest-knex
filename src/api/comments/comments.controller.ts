@@ -1,11 +1,20 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Body,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
-  constructor(private readonly commentService: CommentsService) { }
+  constructor(private readonly commentService: CommentsService) {}
 
   @Get()
   // get all comments
@@ -27,8 +36,7 @@ export class CommentsController {
 
   @Put()
   // update commnet on post
-  update(
-    @Body() payload: UpdateCommentDto) {
+  update(@Body() payload: UpdateCommentDto) {
     return this.commentService.update(payload);
   }
 

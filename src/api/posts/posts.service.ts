@@ -10,19 +10,16 @@ export interface ResponseData {
 }
 @Injectable()
 export class PostsService {
-  constructor(
-    @Inject('PostModel') private modelClass: ModelClass<PostModel>
-  ) { }
+  constructor(@Inject('PostModel') private modelClass: ModelClass<PostModel>) {}
 
   // find posts details with comments by id
   async findAll(): Promise<ResponseData> {
-    const posts = await this.modelClass.query()
-      .withGraphFetched({
+    const posts = await this.modelClass.query().withGraphFetched({
+      user: true,
+      comments: {
         user: true,
-        comments: {
-          user: true,
-        },
-      });
+      },
+    });
     return {
       success: true,
       message: 'Post details fetch successfully.',
@@ -32,7 +29,8 @@ export class PostsService {
 
   // Find post details with comments by id
   async findById(id: number): Promise<ResponseData> {
-    const post = await this.modelClass.query()
+    const post = await this.modelClass
+      .query()
       .findById(id)
       .withGraphFetched({
         user: true,
@@ -53,12 +51,12 @@ export class PostsService {
         data: {},
       };
     }
-
   }
 
   // create post with user id
   async create(payload): Promise<ResponseData> {
-    const post = this.modelClass.query()
+    const post = this.modelClass
+      .query()
       .insert(payload)
       .returning('*');
     return {
@@ -72,10 +70,13 @@ export class PostsService {
   async update(payload): Promise<ResponseData> {
     const post = await this.modelClass.query().findById(payload.postId);
     if (post) {
-      const updatedPost = await this.modelClass.query().update({
+      const updatedPost = await this.modelClass
+        .query()
+        .update({
           title: payload.title ? payload.title : post.title,
           userId: payload.userId,
-        }).where({ id: payload.postId });
+        })
+        .where({ id: payload.postId });
       return {
         success: true,
         message: 'Post details updated successfully.',
@@ -92,7 +93,10 @@ export class PostsService {
 
   // Delete post
   async deleteById(postId: number): Promise<ResponseData> {
-    const posts = await this.modelClass.query().delete().where({ id: postId });
+    const posts = await this.modelClass
+      .query()
+      .delete()
+      .where({ id: postId });
     if (posts) {
       return {
         success: true,

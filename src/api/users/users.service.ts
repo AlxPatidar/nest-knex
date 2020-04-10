@@ -9,21 +9,18 @@ export interface ResponseData {
 }
 @Injectable()
 export class UsersService {
-  constructor(
-    @Inject('UserModel') private modelClass: ModelClass<UserModel>
-  ) { }
+  constructor(@Inject('UserModel') private modelClass: ModelClass<UserModel>) {}
 
   // user list with list of posts and comments on post
   async findAll(): Promise<ResponseData> {
-    const users = await this.modelClass.query()
-      .withGraphFetched({
-        posts: {
+    const users = await this.modelClass.query().withGraphFetched({
+      posts: {
+        user: true,
+        comments: {
           user: true,
-          comments: {
-            user: true,
-          },
         },
-      });
+      },
+    });
     return {
       success: true,
       message: 'User details fetch successfully.',
@@ -33,7 +30,8 @@ export class UsersService {
 
   // find one user info by userId with posts data
   async findById(id: number): Promise<ResponseData> {
-    const user = await this.modelClass.query()
+    const user = await this.modelClass
+      .query()
       .findById(id)
       .withGraphFetched({
         posts: {

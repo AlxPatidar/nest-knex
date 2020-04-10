@@ -32,6 +32,6 @@ const providers = [
 @Global()
 @Module({
   providers,
-  exports: [...providers]
+  exports: [...providers],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
